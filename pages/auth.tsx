@@ -5,6 +5,10 @@ import { useCallback, useState } from "react";
 import { useRouter } from "next/router";
 import axios from "axios";
 
+//Icons
+import { FcGoogle } from "react-icons/fc";
+import { FaGithub } from "react-icons/fa";
+
 export default function Auth() {
   const [email, setEmail] = useState("");
   const [name, setName] = useState("");
@@ -19,22 +23,22 @@ export default function Auth() {
     );
   }, []);
 
-   const login = useCallback(async () => {
-     try {
-       const response = await signIn("credentials", {
-         email,
-         password,
-         redirect: false,
-         callbackUrl: "/",
-       });
-       
-       if(response?.ok) {
-         router.push("/");
-       }
-     } catch (error) {
-       console.log(error);
-     }
-   }, [email, password, router]);
+  const login = useCallback(async () => {
+    try {
+      const response = await signIn("credentials", {
+        email,
+        password,
+        redirect: false,
+        callbackUrl: "/",
+      });
+
+      if (response?.ok) {
+        router.push("/");
+      }
+    } catch (error) {
+      console.log(error);
+    }
+  }, [email, password, router]);
 
   const register = useCallback(async () => {
     try {
@@ -48,8 +52,6 @@ export default function Auth() {
       console.log(error);
     }
   }, [email, name, password, login]);
-
- 
 
   return (
     <div className="relative h-full w-full bg-no-repeat bg-center bg-fixed bg-cover bg-[url('/images/hero2.jpg')]">
@@ -99,6 +101,21 @@ export default function Auth() {
             >
               {variant === "register" ? "S'enregistrer" : "S'identifier"}
             </button>
+
+            <div className="flex items-center justify-center gap-4 mt-8">
+              <div
+                className="h-10 w-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+                onClick={() => signIn("google", { callbackUrl: "/" })}
+              >
+                <FcGoogle size={30} />
+              </div>
+              <div
+                className="h-10 w-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
+                onClick={() => signIn("github", { callbackUrl: "/" })}
+              >
+                <FaGithub size={30} />
+              </div>
+            </div>
 
             <p className="text-neutral-500 mt-12">
               {variant === "login"
