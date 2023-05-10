@@ -28,17 +28,14 @@ export default function Auth() {
       const response = await signIn("credentials", {
         email,
         password,
-        redirect: false,
-        callbackUrl: "/",
+        callbackUrl: "/profiles",
       });
 
-      if (response?.ok) {
-        router.push("/");
-      }
+      
     } catch (error) {
       console.log(error);
     }
-  }, [email, password, router]);
+  }, [email, password]);
 
   const register = useCallback(async () => {
     try {
@@ -105,13 +102,13 @@ export default function Auth() {
             <div className="flex items-center justify-center gap-4 mt-8">
               <div
                 className="h-10 w-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
-                onClick={() => signIn("google", { callbackUrl: "/" })}
+                onClick={() => signIn("google", { callbackUrl: "/profiles" })}
               >
                 <FcGoogle size={30} />
               </div>
               <div
                 className="h-10 w-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition"
-                onClick={() => signIn("github", { callbackUrl: "/" })}
+                onClick={() => signIn("github", { callbackUrl: "/profiles" })}
               >
                 <FaGithub size={30} />
               </div>
