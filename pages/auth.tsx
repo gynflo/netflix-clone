@@ -1,4 +1,4 @@
-import Input from "@/components/input";
+import Input from "@/components/Input";
 import Image from "next/image";
 import { signIn } from "next-auth/react";
 import { useCallback, useState } from "react";
