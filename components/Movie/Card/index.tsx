@@ -1,12 +1,12 @@
 import Image from "next/image";
 import { BsFillPlayFill } from "react-icons/bs";
+import MovieCardFavoritesButton from "@/components/Movie/Card/FavoritesButton";
 
 interface MovieCardProps {
-  key: string;
   data: Record<string, any>;
 }
 
-export default function MovieCard({ key, data }: MovieCardProps) {
+export default function MovieCard({ data }: MovieCardProps) {
   return (
     <div className="group bg-zinc-900 col-span relative h-[12vw]">
       <img
@@ -28,6 +28,7 @@ export default function MovieCard({ key, data }: MovieCardProps) {
             >
               <BsFillPlayFill size={30} />
             </div>
+            <MovieCardFavoritesButton movieId={data.id} />
           </div>
 
           <p className="text-green-400 font-semibold mt-4">
