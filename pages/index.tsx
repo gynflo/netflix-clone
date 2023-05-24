@@ -26,6 +26,8 @@ export async function getServerSideProps(context: NextPageContext) {
 export default function Home() {
   const { data: movies = [] } = useMoviesList();
   const { data: favoriteMovies = [] } = useFavorites();
+  console.log("🚀 ~ file: index.tsx:29 ~ Home ~ favoriteMovies:", favoriteMovies)
+
 
   return (
     <>

@@ -10,8 +10,8 @@ interface FavoriteButtonProps {
 }
 
 export default function FavoriteButton({ movieId }: FavoriteButtonProps) {
-  const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
   const { mutate: mutateFavorites } = useFavorites();
+  const { data: currentUser, mutate: mutateCurrentUser } = useCurrentUser();
 
   const isFavoriteMovie = useMemo(() => {
     const list = currentUser?.favoriteIds || [];
@@ -22,15 +22,17 @@ export default function FavoriteButton({ movieId }: FavoriteButtonProps) {
     let response;
 
     if (isFavoriteMovie) {
-      response = await axios.delete("/api/favorite", { data: { movieId } });
+      //response = await axios.delete('/api/favorite', {data : {movieId}})
+      response = await axios.delete(`/api/favorite?movieId=${movieId}`);
     } else {
       response = await axios.post("/api/favorite", { movieId });
     }
+
     const updateFavoriteIds = response?.data?.favoriteIds;
 
     mutateCurrentUser({
       ...currentUser,
-      favoritesIds: updateFavoriteIds,
+      favoriteIds: updateFavoriteIds,
     });
 
     mutateFavorites();
@@ -47,14 +49,9 @@ export default function FavoriteButton({ movieId }: FavoriteButtonProps) {
   return (
     <div
       className="cursor-pointer group/item w-6 h-6 lg:w-10 lg:h-10 border-white border-2 rounded-full flex justify-center items-center transition hover:border-neutral-300"
-      onClick={() => {
-        toggleFavorites();
-      }}
+      onClick={toggleFavorites}
     >
-      <Icon
-        className={(clsx(isFavoriteMovie && "text-green"), "text-white")}
-        size={25}
-      />
+      <Icon className={clsx("text-white")} size={25} />
     </div>
   );
 }

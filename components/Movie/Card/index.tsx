@@ -1,4 +1,3 @@
-import Image from "next/image";
 import { BsFillPlayFill } from "react-icons/bs";
 import MovieCardFavoritesButton from "@/components/Movie/Card/FavoritesButton";
 
@@ -24,7 +23,6 @@ export default function MovieCard({ data }: MovieCardProps) {
           <div className="flex items-center gap-3">
             <div
               className="cursor-pointer w-6 h-6 lg:w-10 lg:h-10 bg-white rounded-full flex justify-center items-center transition hover:bg-neutral-300"
-              onClick={() => {}}
             >
               <BsFillPlayFill size={30} />
             </div>
