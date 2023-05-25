@@ -5,6 +5,8 @@ import { getSession } from "next-auth/react";
 import MovieList from "@/components/Movie/List";
 import { useMoviesList } from "@/hooks/useMovieList";
 import { useFavorites } from "@/hooks/useFavorites";
+import { MovieInfoModal } from "@/components/Movie/InfoModal";
+import useInfoModal from "@/hooks/useInfoModal";
 
 export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
@@ -26,9 +28,16 @@ export async function getServerSideProps(context: NextPageContext) {
 export default function Home() {
   const { data: movies = [] } = useMoviesList();
   const { data: favorites = [] } = useFavorites();
+  const { isOpen, closeModal } = useInfoModal();
 
   return (
     <>
+      <MovieInfoModal
+        onClose={() => {
+          closeModal();
+        }}
+        visible={isOpen}
+      />
       <Navbar />
       <Billboard />
       <div className="pb-40 flex flex-col gap-4">
